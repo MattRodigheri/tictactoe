@@ -19,10 +19,21 @@ const gameSchema = mongoose.Schema({
 
 const Game = mongoose.model('Game', gameSchema);
 
-const playGame = (move) => {
+const addMove = (move) => {
   Game.create(move, (err) => {
     assert.equal(null, err);
     console.log(move);
     db.disconnect();
   });
 };
+
+const getBoard = (board) => {
+  Game.find()
+  .exec((err, board) => {
+    assert.equal(null, err);
+    console.info(board);
+    db.disconnect();
+  });
+}
+
+module.exports = { addMove, getBoard };
